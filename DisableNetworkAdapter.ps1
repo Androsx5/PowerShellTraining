@@ -32,4 +32,5 @@ Get-NetAdapter -InterfaceIndex 17 | Disable-NetAdapter -Confirm:$false
 # aspetto 3 secondi e poi riabilito la scheda di rete di Virtual Box
 Start-Sleep -Milliseconds 3000
 
+# riabilito solo la scheda di rete di Virtual Box
 Get-NetAdapter -InterfaceIndex 17 | Enable-NetAdapter -Confirm:$false
