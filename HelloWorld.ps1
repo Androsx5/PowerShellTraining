@@ -46,4 +46,6 @@ Get-NetAdapter -Name VMw*
 
 Get-PackageProvider
 
-# commento
+# commento2
+
+$PSVersionTable
