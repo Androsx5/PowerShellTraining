@@ -49,3 +49,14 @@ Get-PackageProvider
 # commento2
 
 $PSVersionTable
+
+Install-Module Send-MailKitMessage
+
+Send-MailKitMessage
+
+# verificare il tipo di una variabile
+$var = ls | Format-Table 
+
+# metodo .NET di C#
+$var.GetType();
+
