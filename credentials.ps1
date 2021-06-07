@@ -10,3 +10,11 @@ $pwd = "01000000d08c9ddf0115d1118c7a00c04fc297eb01000000e00df9985181374ba4d07244
 $spwd = ConvertTo-SecureString $pwd
 
 $clearpwd = [RunTime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($spwd))
+
+$cred = New-Object System.Management.Automation.PSCredential ($uid,$spwd)
+
+#vorrei stampare la data di domani
+
+$d = Get-Date
+
+[System.DateTime]::Now.AddDays(1).ToString("yyyy-MM-dd")
