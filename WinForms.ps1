@@ -5,7 +5,3 @@ $form = New-Object System.Windows.Forms
 $form = New-Object System.Windows.Forms.Form
 
 $form.show()
-
-sleep 3000
-
-$form.close()
