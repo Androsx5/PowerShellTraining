@@ -1,0 +1,1 @@
+$pathspeedtestexe = "C:\Users\A.SANTERINI\speedtestcli\speedtest.exe"
