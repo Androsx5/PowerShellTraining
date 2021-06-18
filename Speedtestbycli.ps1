@@ -6,48 +6,56 @@ Questo scrit ha lo scopo di lanciare periodicamente (ogni ora del giorno dalle 8
 Install-Module Send-MailKitMessage
 
 [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | Out-Null
-$pathspeedtestexe = "C:\Users\A.SANTERINI\speedtestcli\"
-$exetorun = "speedtest.exe"
+$pathspeedtestcli = "C:\Users\A.SANTERINI\speedtestcli\"
+$pathspeedtestcliexe = "C:\Users\A.SANTERINI\speedtestcli\speedtest.exe"
 $server_vodafone_milano = "-s4302"
 $server_tim_firenze = "-s9636"
-$speedtestreport = "speedtest_report.txt"
-$temp = "temp.txt"
+$speedtestreport = "C:\Users\A.SANTERINI\speedtestcli\speedtest_report.txt"
+$temp = "C:\Users\A.SANTERINI\speedtestcli\temp.txt"
 
 
-if ( !(Test-Path -Path $pathspeedtestexe) -or !(Test-Path -Path $pathspeedtestexe$exetorun)) {
+if ( !(Test-Path -Path $pathspeedtestcliexe) ) {
 
-    [System.Windows.Forms.MessageBox]::Show("Path $pathspeedtestexe o $exetorun non esistente","Path o file non esistente")
-    # [Environment]::Exit(1)
+    [System.Windows.Forms.MessageBox]::Show("Path $pathspeedtestcli non esistente","Path o file non esistente")
     exit 
 
 }
 
 # stile cd in dos
-Set-Location -Path $pathspeedtestexe
+# Set-Location -Path $pathspeedtestcli
 
 # estraggo ora dalla data
 [int]$hour = Get-Date -Format HH
+[int]$min = Get-Date -Format mm
+[int]$seconds = Get-Date -Format ss
 
 
-# dalle 8 alle 20 faccio speedtest ogni ora
-while($hour -lt 21 -and  $hour -gt 7 -and $min -eq 00 -and $seconds -eq 00) {
+# ogni ora aggiorno il report e alle 23 invio mail ed esco dallo script
+while($true) {  
 
-    # Invoke-Expression -Command $exetorun # > test.txt
-    Add-Content -Path $speedtestreport -Value "-----------------------------------------------------------------------------------"
-    Add-Content -Path $speedtestreport -Value $(Get-Date)
+    if ($min -eq 00 -and $seconds -eq 00) {
+
+        Add-Content -Path $speedtestreport -Value "-----------------------------------------------------------------------------------"
+        Add-Content -Path $speedtestreport -Value $(Get-Date)
+        Add-Content -Path $speedtestreport -Value "-------------------"
+        Add-Content -Path $speedtestreport -Value $((Invoke-WebRequest -uri "http://ifconfig.me/ip").Content)
+        Add-Content -Path $speedtestreport -Value "-------------------"
+        
+        # & $exetorun $server_vodafone_milano >> $speedtestreport
+        Start-Process -FilePath $pathspeedtestcliexe -ArgumentList $server_vodafone_milano -Wait -WindowStyle Hidden -RedirectStandardOutput $temp
+        Add-Content -Path $speedtestreport -Value (Get-Content -Path $temp)
+
+    }
+
+    if ($hour -eq 23) { break }
     
-    # & $exetorun $server_vodafone_milano >> $speedtestreport
-
-    Start-Process -FilePath $pathspeedtestexe$exetorun -ArgumentList $server_vodafone_milano -Wait -WindowStyle Hidden -RedirectStandardOutput $temp
-    Add-Content -Path $speedtestreport -Value (Get-Content -Path $temp)
-
-    # estraggo ora dalla data
     [int]$hour = Get-Date -Format HH
 
     [int]$min = Get-Date -Format mm
 
     [int]$seconds = Get-Date -Format ss
- 
+
+     
 }
 
 
@@ -71,11 +79,12 @@ $sendMailParams = @{
 
 Send-MailMessage @sendMailParams
 
-# sleep -Milliseconds 5000
-
 # cancello dopo aver inviato per mail -pulizia
-Remove-Item -Path $pathspeedtestexe$speedtestreport
-Remove-Item -Path $pathspeedtestexe$temp
+Remove-Item -Path $speedtestreport
+Remove-Item -Path $temp
+
+
+
 
 
 
