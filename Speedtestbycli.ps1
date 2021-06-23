@@ -1,6 +1,13 @@
 <#
-.Description
-Questo scrit ha lo scopo di lanciare periodicamente (ogni ora del giorno dalle 8 alle 20) uno speedtest CLI verso il Server Vodafone di Milano
+
+.SYNOPSIS
+
+Questo scrit ha lo scopo di lanciare uno speedtest ogni ora e inviare un report via mail alle 23
+
+.DESCRIPTION
+
+Utilizzato server Vodafone di Milano (considerato uno dei più affidabili)
+
 #>
 
 Install-Module Send-MailKitMessage
