@@ -4,6 +4,8 @@
 
 Questo script ha lo scopo di installare in automatico i software base di una macchina Windows appena formatta
 
+TO BE COMPLETED
+
 LISTA SOFTWARE:
 7Zip
 
