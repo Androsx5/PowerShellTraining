@@ -20,50 +20,58 @@ $ethernet2_ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.Interfa
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
 
-$main_form = New-Object System.Windows.Forms.Form
-$main_form.Text = 'Network Info'
-$main_form.Size = New-Object System.Drawing.Size(300,200)
-$main_form.StartPosition = 'CenterScreen'
 
-$label = New-Object System.Windows.Forms.Label
-$label.Location = New-Object System.Drawing.Point(10,20)
-$label.Size = New-Object System.Drawing.Size(280,20)
-$label.Text = 'Ethernet IP: '
-$main_form.Controls.Add($label)
 
-$textBox = New-Object System.Windows.Forms.TextBox
-$textBox.Location = New-Object System.Drawing.Point(10,40)
-$textBox.Size = New-Object System.Drawing.Size(260,20)
-$textBox.AppendText($ethernet_ip.ToString())
-$textBox.ReadOnly = $true
-$textBox.BackColor = "Yellow"
-$main_form.Controls.Add($textBox)
+$Form = New-Object system.Windows.Forms.Form
+$Form.Text = "Network Info"
+$Form.TopMost = $true
+$Form.Width = 500
+$Form.Height = 500
 
-$label2 = New-Object System.Windows.Forms.Label
-$label2.Location = New-Object System.Drawing.Point(40,30)
-$label2.Size = New-Object System.Drawing.Size(310,20)
-$label2.Text = 'Wi-FI IP: '
-$main_form.Controls.Add($label2)
+$textBoxEth = New-Object system.windows.Forms.TextBox
+$textBoxEth.Width = 200
+$textBoxEth.Height = 200
+$textBoxEth.location = new-object system.drawing.point(200,100)
+$textBoxEth.AppendText($ethernet_ip.ToString())
+$textBoxEth.ReadOnly = $true
+$Form.controls.Add($textBoxEth)
+
+$labeleth = New-Object system.windows.Forms.Label
+$labeleth.Width = 100
+$labeleth.Height = 100
+$labeleth.location = new-object system.drawing.point(100,100)
+$labeleth.Text = "Ethernet IP: "
+$Form.controls.Add($labeleth)
+
+
+$labelwifi = New-Object system.windows.Forms.Label
+$labelwifi.Width = 100
+$labelwifi.Height = 100
+$labelwifi.location = new-object system.drawing.point(100,200)
+$labelwifi.Text = "Wi-Fi IP: "
+$Form.controls.Add($labelwifi)
+
+
+$textBoxWiFi = New-Object system.windows.Forms.TextBox
+$textBoxWiFi.Width = 200
+$textBoxWiFi.Height = 200
+$textBoxWiFi.location = new-object system.drawing.point(200,200)
+if ($wifi_ip) { $textBoxWiFi.AppendText($wifi_ip.ToString()) }
+$textBoxWiFi.ReadOnly = $true
+$Form.controls.Add($textBoxWiFi)
+
 
 
 $okButton = New-Object System.Windows.Forms.Button
-$okButton.Location = New-Object System.Drawing.Point(105,120)
-$okButton.Size = New-Object System.Drawing.Size(75,23)
+$okButton.Location = New-Object System.Drawing.Point(300,300)
 $okButton.Text = 'OK'
+$okButton.Width = 100
+$okButton.Height = 60
 $okButton.DialogResult = [System.Windows.Forms.DialogResult]::OK
-$main_form.AcceptButton = $okButton
-$main_form.Controls.Add($okButton)
-
-
-$okButton.Add_Click( {
-
-    $main_form.Close()
-
-}
-
-)
-
-$main_form.ShowDialog()
+$Form.AcceptButton = $okButton
+$Form.Controls.Add($okButton)
 
 
 
+$form.Add_Shown({$form.Activate()})    
+$dialogResult = $form.ShowDialog()
