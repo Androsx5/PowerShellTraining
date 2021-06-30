@@ -17,57 +17,44 @@ $connect_tunnel_ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.In
 $ethernet2_ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -eq 'Ethernet 2'}
 
 
-Add-Type -assembly System.Windows.Forms
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
 
 $main_form = New-Object System.Windows.Forms.Form
+$main_form.Text = 'Network Info'
+$main_form.Size = New-Object System.Drawing.Size(300,200)
+$main_form.StartPosition = 'CenterScreen'
 
-$main_form.Text ='GUI for my PoSh script'
+$label = New-Object System.Windows.Forms.Label
+$label.Location = New-Object System.Drawing.Point(10,20)
+$label.Size = New-Object System.Drawing.Size(280,20)
+$label.Text = 'Ethernet IP: '
+$main_form.Controls.Add($label)
 
-$main_form.Width = 600
+$textBox = New-Object System.Windows.Forms.TextBox
+$textBox.Location = New-Object System.Drawing.Point(10,40)
+$textBox.Size = New-Object System.Drawing.Size(260,20)
+$textBox.AppendText($ethernet_ip.ToString())
+$textBox.ReadOnly = $true
+$textBox.BackColor = "Green"
+$main_form.Controls.Add($textBox)
 
-$main_form.Height = 400
+$label2 = New-Object System.Windows.Forms.Label
+$label2.Location = New-Object System.Drawing.Point(30,40)
+$label2.Size = New-Object System.Drawing.Size(280,40)
+$label2.Text = 'Wi-Fi IP: '
+$main_form.Controls.Add($label2)
 
-$main_form.AutoSize = $true
-
-Write-Host $ethernet_ip
-
-
-$Label2 = New-Object System.Windows.Forms.Label
-
-$Label2.Text = "Ethernet IP: "
-
-$Label2.Location  = New-Object System.Drawing.Point(0,40)
-
-$Label2.AutoSize = $true
-
-$main_form.Controls.Add($Label2)
-
-$TextBox2 = New-Object System.Windows.Forms.TextBox
-
-$TextBox2.Location = New-Object System.Drawing.Point(0,80)
-
-$TextBox2.Text = $ethernet_ip
-
-$main_form.Controls.Add($TextBox2)
-
-
-
-
+$okButton = New-Object System.Windows.Forms.Button
+$okButton.Location = New-Object System.Drawing.Point(105,120)
+$okButton.Size = New-Object System.Drawing.Size(75,23)
+$okButton.Text = 'OK'
+$okButton.DialogResult = [System.Windows.Forms.DialogResult]::OK
+$main_form.AcceptButton = $okButton
+$main_form.Controls.Add($okButton)
 
 
-$Button = New-Object System.Windows.Forms.Button
-
-$Button.Location = New-Object System.Drawing.Size(400,10)
-
-$Button.Size = New-Object System.Drawing.Size(120,23)
-
-$Button.Text = "OK"
-
-$main_form.Controls.Add($Button)
-
-
-
-$Button.Add_Click( {
+$okButton.Add_Click( {
 
     $main_form.Close()
 
