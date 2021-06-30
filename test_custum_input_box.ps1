@@ -83,20 +83,20 @@ $labeleth.Text = "Ethernet IP: "
 $Form.controls.Add($labeleth)
 
 
-$lblOutageIMG1 = New-Object system.windows.Forms.Label
-$lblOutageIMG1.Width = 100
-$lblOutageIMG1.Height = 100
-$lblOutageIMG1.location = new-object system.drawing.point(100,200)
-$lblOutageIMG1.Text = "Wi-Fi IP: "
-$Form.controls.Add($lblOutageIMG1)
+$labelwifi = New-Object system.windows.Forms.Label
+$labelwifi.Width = 100
+$labelwifi.Height = 100
+$labelwifi.location = new-object system.drawing.point(100,200)
+$labelwifi.Text = "Wi-Fi IP: "
+$Form.controls.Add($labelwifi)
 
-$txtOutageIMG1 = New-Object system.windows.Forms.TextBox
-$txtOutageIMG1.Width = 200
-$txtOutageIMG1.Height = 200
-$txtOutageIMG1.location = new-object system.drawing.point(200,200)
-$txtOutageIMG1.AppendText($wifi_ip.ToString())
-$txtOutageIMG1.ReadOnly = $true
-$Form.controls.Add($txtOutageIMG1)
+$textBoxWiFi = New-Object system.windows.Forms.TextBox
+$textBoxWiFi.Width = 200
+$textBoxWiFi.Height = 200
+$textBoxWiFi.location = new-object system.drawing.point(200,200)
+$textBoxWiFi.AppendText($wifi_ip.ToString())
+$textBoxWiFi.ReadOnly = $true
+$Form.controls.Add($textBoxWiFi)
 
 $form.Add_Shown({$form.Activate()})    
 $dialogResult = $form.ShowDialog()
