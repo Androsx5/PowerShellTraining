@@ -1,3 +1,5 @@
+
+<#
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
@@ -43,3 +45,58 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
     $x = $textBox.Text
     $x
 }
+
+#>
+
+
+
+$ethernet_ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -eq 'Ethernet'}
+$wifi_ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -eq 'Wi-Fi'}
+$connect_tunnel_ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -eq 'Connect Tunnel'}
+$ethernet2_ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -eq 'Ethernet 2'}
+
+
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
+
+
+
+$Form = New-Object system.Windows.Forms.Form
+$Form.Text = "Network Info"
+$Form.TopMost = $true
+$Form.Width = 500
+$Form.Height = 500
+
+$textBoxEth = New-Object system.windows.Forms.TextBox
+$textBoxEth.Width = 200
+$textBoxEth.Height = 200
+$textBoxEth.location = new-object system.drawing.point(200,100)
+$textBoxEth.AppendText($ethernet_ip.ToString())
+$textBoxEth.ReadOnly = $true
+$Form.controls.Add($textBoxEth)
+
+$labeleth = New-Object system.windows.Forms.Label
+$labeleth.Width = 100
+$labeleth.Height = 100
+$labeleth.location = new-object system.drawing.point(100,100)
+$labeleth.Text = "Ethernet IP: "
+$Form.controls.Add($labeleth)
+
+
+$lblOutageIMG1 = New-Object system.windows.Forms.Label
+$lblOutageIMG1.Width = 100
+$lblOutageIMG1.Height = 100
+$lblOutageIMG1.location = new-object system.drawing.point(100,200)
+$lblOutageIMG1.Text = "Wi-Fi IP: "
+$Form.controls.Add($lblOutageIMG1)
+
+$txtOutageIMG1 = New-Object system.windows.Forms.TextBox
+$txtOutageIMG1.Width = 200
+$txtOutageIMG1.Height = 200
+$txtOutageIMG1.location = new-object system.drawing.point(200,200)
+$txtOutageIMG1.AppendText($wifi_ip.ToString())
+$txtOutageIMG1.ReadOnly = $true
+$Form.controls.Add($txtOutageIMG1)
+
+$form.Add_Shown({$form.Activate()})    
+$dialogResult = $form.ShowDialog()
