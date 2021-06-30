@@ -2,7 +2,7 @@
 
 .SYNOPSIS
 
-Questo script ha lo scopo aprire una finestra con IP della macchina
+Questo script ha lo scopo aprire una finestra con IP della macchina e non solo
 
 
 .DESCRIPTION
