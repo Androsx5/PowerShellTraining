@@ -2,12 +2,17 @@
 
 .SYNOPSIS
 
-Questo script ha lo scopo aprire una finestra con IP della macchina e non solo
-
+Script che apre una Form con gli IP della Macchina
 
 .DESCRIPTION
 
-descrizione più dettagliata
+Questo script ha lo scopo aprire una Windows Form con IP della macchina in particolare:
+
+Ethernet
+Wi FI
+Connect Tunnel
+Adattatore USB-Ethernet
+
 
 #>
 
