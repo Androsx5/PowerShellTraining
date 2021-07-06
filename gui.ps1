@@ -28,7 +28,7 @@ $ethernet2_ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.Interfa
 
 
 $Form = New-Object system.Windows.Forms.Form
-$Form.Text = "Network Info"
+$Form.Text = "Network Info by AleSanterini"
 $Form.TopMost = $true
 $Form.Width = 500
 $Form.Height = 630
