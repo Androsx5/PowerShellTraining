@@ -1,0 +1,80 @@
+#Linguaggi regolari
+
+A = a ,b , c... z   #alfabeto a
+B = 0, .. 9
+
+L = L1 | L2
+
+L = A | B  # A oppure B cioè o un carattere o una cifra
+
+L = L1 . L2  #concatenare stringhe
+
+L = A . B 
+
+
+# modo costruttivo per costituire un linguaggio
+CF = A . A . A . A . A . A . B . B
+
+L* = { {}, L, L . L, L . L.L}  # asterisco stella di Cliny 
+
+(A | B)* =
+(A | B)(A | B)* == (A | B)+
+
+
+()((()()))() # non è possibile scrivere in un linguaggio regolare se le parentesi sono bilanciate o meno
+
+a*  # a seguito da qualsiasi cosa 0 o più volte, nei linguaggi regolari non è così
+
+ls a* -> ls a.*
+
+awk # trasforma stringhe in stile streaming, consentiva di prendere uno stream di caratteri e di cambiarlo con altro stream di caratteri 
+
+a.*a # forma contratta, a seguito 0 o più volte qualsiasi carattere seguito da a
+
+aba abbba aa 
+
+abbaba # ingordo riconosce sempre sequenza di lunga 
+
+-----------------------------------------------------------------------
+
+
+
+# Carattere singolo (normalmente le espressioni regolare normalmente sono case sensitive)
+
+a                   # carattere a
+.                   # qualsiasi carattere
+[ab]                # va bene o il carattere a o il carattere b
+[a..zA..Z0..9]      # un carattere tra questo insieme, cioè dalla a alla z, dalla A alla Z e da 0 a 9
+
+\w                  # shortcut classi di caratteri, cioè un carattere che fa parte di una parola infatti w sta per word e non include gli spazi
+\s                  #  include gli spazi, cioè spazio a capo e tab
+\\                  
+\[                  # quadra
+\]
+\S                  # voglio tutto tranne che uno spazio
+\(
+\)
+
+Queste elencate sono classi di caratteri, dove cappelletto ^ vuol dire not 
+
+[^ab]              # qualsiasi cosa che non sia ab
+
+# Composizione
+
+a|b                # ci va bene il carattere a o b 
+ab|ac
+a(b|a)c 
+a*                 # 0 o più volte stream
+a+                 # una o più di quello che precede
+(ab|ac)*  -> abababacc   <- non riconosciuta causa 2 c che la grammatica non prevede
+
+ab*ab -> abab 
+
+(ab)*?    # vorrei che tu riconoscessi la più corta sequenza di ab 
+(ab)+? == ab 
+
+
+
+
+
+
