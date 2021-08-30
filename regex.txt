@@ -58,6 +58,8 @@ a                   # carattere a
 Queste elencate sono classi di caratteri, dove cappelletto ^ vuol dire not 
 
 [^ab]              # qualsiasi cosa che non sia ab
+(?!ab)              # qualsiasi cosa che non sia ab in powershell usando select-string 
+                    #  select-string -Path "C:\Users\A.SANTERINI\out.txt" -Pattern "(?!Set-Location)"
 
 # Composizione
 
@@ -73,8 +75,23 @@ ab*ab -> abab
 (ab)*?    # vorrei che tu riconoscessi la più corta sequenza di ab 
 (ab)+? == ab 
 
+#CF
+[A-Za-z]{6}(\d\d)[A-Za-z]\d\d[A-Za-z]\d{3}[A-Za-z]         # espressione regolare che descrive il codice fiscale,  NB:  \d sta per digit quindi matcha una cifra da 0 a 9
+                                                         # /d sarà nominato $1 e nelle espressioni regolari lo si può riferire direttamente al suo 
+
+SNTLSN84T04G702T
+            84
 
 
+2EA67CAF-6510-488D-BE23-00673AA63809    Giunta dipartimento PA 
+6C5B60DE-652D-48C3-BC71-034441B5D7D7    Senato della Repubblica
+6C5B60DE-652D-48C3-BC71-034441B5D7D7    Pippo
 
+    1234    1234
+
+^[A-Za-z]{6}(\d\d)[A-Za-z]\d\d[A-Za-z]\d{3}[A-Za-z]$
+
+^ è inizio linea
+$ fine input
 
 
