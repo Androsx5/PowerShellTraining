@@ -11,7 +11,7 @@ Prerequisito in caso non funzionasse il modulo Teams installato di default
 Install-Module MicrosoftTeams
 Uninstall-Module MicrosoftTeams
 Install-Module MicrosoftTeams -AllowPrerelease -RequiredVersion "2.4.1-preview"
-# Import-Module MicrosoftTeams
+Import-Module MicrosoftTeams
 
 #>
 
