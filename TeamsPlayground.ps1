@@ -19,9 +19,9 @@ $dict = @{ a="Ciao"; b=2}
 $dict.Add("ab",3)
 $dict
 
-# $myteams | Out-GridView
+$myteams | Out-GridView
 
-$myteams | Out-String
+# $myteams | Out-String
 
 $idx = @{}
 
